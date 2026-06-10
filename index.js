@@ -1,0 +1,40 @@
+import express from 'express';
+import bodyParser from 'body-parser';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// Importing the modules from sila folder
+import pairRouter from './sila/pair.js';
+import qrRouter from './sila/qr.js';
+
+const app = express();
+
+// Resolve the current directory path in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const PORT = process.env.PORT || 8000;
+
+import('events').then(events => {
+    events.EventEmitter.defaultMaxListeners = 500;
+});
+
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname));
+app.use('/sila', express.static(path.join(__dirname, 'sila')));
+
+// Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sila', 'pair.html'));
+});
+
+app.use('/pair', pairRouter);
+app.use('/qr', qrRouter);
+
+app.listen(PORT, () => {
+    console.log(`🤖 SILA-MD Bot\n👨‍💻 Owner: SILA\n\n✅ Server running on http://localhost:${PORT}`);
+});
+
+export default app;
