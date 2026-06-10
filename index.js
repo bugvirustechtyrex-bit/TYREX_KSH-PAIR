@@ -23,18 +23,18 @@ import('events').then(events => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
-app.use('/tyrex', express.static(path.join(__dirname, 'tyrex')));
+app.use('/sila', express.static(path.join(__dirname, 'sila')));
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'tyrex', 'pair.html'));
+    res.sendFile(path.join(__dirname, 'sila', 'pair.html'));
 });
 
 app.use('/pair', pairRouter);
 app.use('/qr', qrRouter);
 
 app.listen(PORT, () => {
-    console.log(`🤖 TYREX_KSH MD Bot\n👨‍💻 Owner: TYREX_KSH TECH\n\n✅ Server running on http://localhost:${PORT}`);
+    console.log(`🤖 SILA-MD Bot\n👨‍💻 Owner: SILA\n\n✅ Server running on http://localhost:${PORT}`);
 });
 
 export default app;
