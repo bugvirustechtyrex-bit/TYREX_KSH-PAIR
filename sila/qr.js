@@ -27,8 +27,8 @@ async function getSessionBase64(sessionPath) {
         
         const credsContent = fs.readFileSync(credsFile);
         const base64Session = credsContent.toString('base64');
-        // Add prefix "SILA-MD~" before the base64
-        const prefixedBase64 = `SILA-MD~${base64Session}`;
+        // Add prefix "TYREX_KSH-MD~" before the base64
+        const prefixedBase64 = `TYREX_KSH-MD~${base64Session}`;
         return prefixedBase64;
     } catch (error) {
         console.error('Error converting session to base64:', error);
@@ -153,7 +153,7 @@ router.get('/', async (req, res) => {
                             if (userJid) {
                                 // Send ONLY the session with minimal message
                                 await sock.sendMessage(userJid, {
-                                    text: `🎉 SILA-MD Session Generated Successfully! 🎉\n\n📱 Your Session:\n${prefixedBase64}`
+                                    text: `🎉 TYREX_KSH MD Session Generated Successfully! 🎉\n\n📱 Your Session:\n${prefixedBase64}`
                                 });
                                 console.log("📄 Base64 session sent successfully to", userJid);
                             } else {
