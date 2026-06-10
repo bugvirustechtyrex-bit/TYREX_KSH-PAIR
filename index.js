@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 
 // Importing the modules from sila folder
-import pairRouter from './tyrex_ksh/pair.js';
-import qrRouter from './tyrex_ksh/qr.js';
+import pairRouter from './sila/pair.js';
+import qrRouter from './sila/qr.js';
 
 const app = express();
 
