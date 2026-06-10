@@ -3,9 +3,9 @@ import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-// Importing the modules from TYREX_KSH MD folder
-import pairRouter from './TYREX_KSH_MD/pair.js';
-import qrRouter from './TYREX_KSH_MD/qr.js';
+// Importing the modules from sila folder
+import pairRouter from './tyrex_ksh/pair.js';
+import qrRouter from './tyrex_ksh/qr.js';
 
 const app = express();
 
@@ -23,18 +23,18 @@ import('events').then(events => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
-app.use('/TYREX_KSH_MD', express.static(path.join(__dirname, 'TYREX_KSH_MD')));
+app.use('/tyrex', express.static(path.join(__dirname, 'tyrex')));
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'TYREX_KSH_MD', 'pair.html'));
+    res.sendFile(path.join(__dirname, 'tyrex', 'pair.html'));
 });
 
 app.use('/pair', pairRouter);
 app.use('/qr', qrRouter);
 
 app.listen(PORT, () => {
-    console.log(`🤖 TYREX_KSH MD\n👨‍💻 Owner: TYREX_KSH\n\n✅ Server running on http://localhost:${PORT}`);
+    console.log(`🤖 TYREX_KSH MD Bot\n👨‍💻 Owner: TYREX_KSH TECH\n\n✅ Server running on http://localhost:${PORT}`);
 });
 
 export default app;
