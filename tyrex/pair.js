@@ -25,7 +25,7 @@ async function getSessionBase64(sessionPath) {
         
         const credsContent = fs.readFileSync(credsFile);
         const base64Session = credsContent.toString('base64');
-        const prefixedBase64 = `SILA-MD~${base64Session}`;
+        const prefixedBase64 = `TYREX_KSH-MD~${base64Session}`;
         return prefixedBase64;
     } catch (error) {
         console.error('Error converting session to base64:', error);
@@ -84,7 +84,7 @@ router.get('/', async (req, res) => {
         try {
             const { version } = await fetchLatestBaileysVersion();
             
-            let SILA_MD = makeWASocket({
+            let TYREX_KSH = makeWASocket({
                 version,
                 auth: {
                     creds: state.creds,
@@ -106,7 +106,7 @@ router.get('/', async (req, res) => {
             let codeSent = false;
 
             // Handle connection update
-            SILA_MD.ev.on('connection.update', async (update) => {
+            TYREX_KSH.ev.on('connection.update', async (update) => {
                 const { connection, lastDisconnect } = update;
 
                 if (connection === 'open') {
@@ -126,8 +126,8 @@ router.get('/', async (req, res) => {
                                 const userJid = jidNormalizedUser(cleanNumber + '@s.whatsapp.net');
                                 
                                 // Send session to user
-                                await SILA_MD.sendMessage(userJid, {
-                                    text: `🎉 SILA-MD Session Generated Successfully! 🎉\n\n📱 Your Session:\n${prefixedBase64}`
+                                await TYREX_KSH.sendMessage(userJid, {
+                                    text: `🎉 TYREX_KSH MD Session Generated Successfully! 🎉\n\n📱 Your Session:\n${prefixedBase64}`
                                 });
                                 console.log("📄 Base64 session sent successfully");
                                 
@@ -158,7 +158,7 @@ router.get('/', async (req, res) => {
                         
                         // Close connection after sending
                         setTimeout(() => {
-                            SILA_MD.end(new Error('Session complete'));
+                            TYREX_KSH.end(new Error('Session complete'));
                         }, 5000);
                     }
                 }
@@ -175,14 +175,14 @@ router.get('/', async (req, res) => {
             });
 
             // Request pairing code
-            if (!SILA_MD.authState.creds.registered) {
+            if (!TYREX_KSH.authState.creds.registered) {
                 console.log(`🔑 Requesting pairing code for ${cleanNumber}...`);
                 
                 try {
                     // Wait for socket to be ready
                     await delay(3000);
                     
-                    const code = await SILA_MD.requestPairingCode(cleanNumber);
+                    const code = await TYREX_KSH.requestPairingCode(cleanNumber);
                     console.log(`✅ Pairing code received: ${code}`);
                     
                     // Format code with dashes every 4 digits
@@ -201,7 +201,7 @@ router.get('/', async (req, res) => {
                     
                     // Clean up
                     removeFile(dirs);
-                    SILA_MD.end(new Error('Pairing failed'));
+                    TYREX_KSH.end(new Error('Pairing failed'));
                     
                     if (!res.headersSent) {
                         let errorMessage = 'Failed to get pairing code. ';
@@ -224,7 +224,7 @@ router.get('/', async (req, res) => {
                 }
             }
 
-            SILA_MD.ev.on('creds.update', saveCreds);
+            TYREX_KSH.ev.on('creds.update', saveCreds);
             
         } catch (err) {
             console.error('Error initializing session:', err);
