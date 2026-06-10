@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-  <title>SILA-MD | WhatsApp Connector</title>
+  <title>TYREX_KSH MD | WhatsApp Connector</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
@@ -23,6 +23,14 @@
       padding: 20px;
       position: relative;
       overflow-x: hidden;
+      animation: bodyBgShift 10s ease infinite;
+    }
+
+    @keyframes bodyBgShift {
+      0% { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+      33% { background: linear-gradient(135deg, #1a0b2e, #4a1d6d, #2a1a4a); }
+      66% { background: linear-gradient(135deg, #0e1a2a, #2d1b4e, #1a0f2e); }
+      100% { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
     }
 
     /* Animated background particles */
@@ -48,7 +56,7 @@
       50% { transform: translateY(-20px) translateX(10px); opacity: 0.8; }
     }
 
-    /* Glassmorphism container */
+    /* Glassmorphism container with rainbow border */
     .container {
       position: relative;
       z-index: 1;
@@ -58,8 +66,16 @@
       backdrop-filter: blur(20px);
       border-radius: 32px;
       padding: 32px;
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      animation: slideUp 0.6s ease-out;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+      animation: slideUp 0.6s ease-out, rainbowBorderGlow 3s infinite;
+    }
+
+    @keyframes rainbowBorderGlow {
+      0% { box-shadow: 0 0 10px #ff0000, 0 25px 45px rgba(0,0,0,0.2); }
+      25% { box-shadow: 0 0 20px #00ff00, 0 25px 45px rgba(0,0,0,0.2); }
+      50% { box-shadow: 0 0 20px #0000ff, 0 25px 45px rgba(0,0,0,0.2); }
+      75% { box-shadow: 0 0 20px #ff00ff, 0 25px 45px rgba(0,0,0,0.2); }
+      100% { box-shadow: 0 0 10px #ff0000, 0 25px 45px rgba(0,0,0,0.2); }
     }
 
     @keyframes slideUp {
@@ -85,28 +101,30 @@
       margin-bottom: 16px;
     }
 
-    .logo {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      color: white;
+    /* Your logo image */
+    .logo-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
       margin: 0 auto;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-      animation: pulse 2s infinite;
+      display: block;
+      border: 3px solid transparent;
+      animation: logoBorderRainbow 2s infinite, pulse 2s infinite;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    @keyframes logoBorderRainbow {
+      0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+      25% { border-color: #00ff00; box-shadow: 0 0 20px #00ff00; }
+      50% { border-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
+      75% { border-color: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
+      100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
     }
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
-    }
-
-    .logo i {
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
 
     .badge {
@@ -120,22 +138,44 @@
       padding: 4px 8px;
       border-radius: 20px;
       letter-spacing: 1px;
+      animation: badgeGlow 1.5s infinite;
+    }
+
+    @keyframes badgeGlow {
+      0%, 100% { box-shadow: 0 0 5px #f5576c; }
+      50% { box-shadow: 0 0 20px #f093fb; }
     }
 
     .title {
       font-size: 28px;
       font-weight: 800;
-      background: linear-gradient(135deg, #fff 0%, #a8c0ff 100%);
+      background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+      background-size: 400% auto;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       margin-bottom: 8px;
       letter-spacing: -0.5px;
+      animation: rainbowFlow 4s linear infinite;
     }
 
     .subtitle {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
+      background: linear-gradient(90deg, #ff99cc, #99ff99, #99ccff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: subtitlePulse 2s ease infinite;
+    }
+
+    @keyframes subtitlePulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes rainbowFlow {
+      0% { background-position: 0% center; }
+      100% { background-position: 400% center; }
     }
 
     /* Premium Toggle */
@@ -146,6 +186,14 @@
       display: flex;
       margin-bottom: 28px;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: toggleGlow 3s infinite;
+    }
+
+    @keyframes toggleGlow {
+      0% { border-color: #ff0000; }
+      33% { border-color: #00ff00; }
+      66% { border-color: #0000ff; }
+      100% { border-color: #ff0000; }
     }
 
     .toggle-option {
@@ -166,7 +214,9 @@
     }
 
     .toggle-option.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+      background-size: 400% auto;
+      animation: rainbowFlow 2s linear infinite;
       color: white;
       box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     }
@@ -186,13 +236,11 @@
       margin-bottom: 10px;
       font-size: 13px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
+      background: linear-gradient(90deg, #ff9999, #99ff99, #9999ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       letter-spacing: 0.5px;
-    }
-
-    .input-label i {
-      margin-right: 8px;
-      font-size: 12px;
     }
 
     .input-field {
@@ -209,9 +257,17 @@
 
     .input-field:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #ff00ff;
       background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      box-shadow: 0 0 0 3px rgba(255, 0, 255, 0.2);
+      animation: inputGlow 1s infinite;
+    }
+
+    @keyframes inputGlow {
+      0% { border-color: #ff0000; }
+      33% { border-color: #00ff00; }
+      66% { border-color: #0000ff; }
+      100% { border-color: #ff0000; }
     }
 
     .input-field::placeholder {
@@ -222,7 +278,8 @@
     .generate-btn {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+      background-size: 400% auto;
       border: none;
       border-radius: 16px;
       color: white;
@@ -233,29 +290,13 @@
       margin-bottom: 20px;
       position: relative;
       overflow: hidden;
-    }
-
-    .generate-btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .generate-btn:hover::before {
-      width: 300px;
-      height: 300px;
+      animation: rainbowFlow 3s linear infinite;
     }
 
     .generate-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 10px 25px rgba(255, 0, 255, 0.5);
+      animation: rainbowFlow 0.5s linear infinite;
     }
 
     .generate-btn:active {
@@ -276,17 +317,31 @@
       margin-bottom: 16px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
+      animation: cardGlow 2s infinite;
     }
 
+    @keyframes cardGlow {
+      0% { border-color: #ff0000; }
+      33% { border-color: #00ff00; }
+      66% { border-color: #0000ff; }
+      100% { border-color: #ff0000; }
+    }
+
+    /* RAINBOW ANIMATION FOR CODE */
     .code-number {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 800;
       letter-spacing: 6px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: monospace;
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+      background-size: 400% auto;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      font-family: monospace;
+      animation: rainbowFlow 1.5s linear infinite;
     }
 
     .qr-display {
@@ -298,6 +353,7 @@
       margin-bottom: 16px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       display: none;
+      animation: cardGlow 2s infinite;
     }
 
     .qr-image {
@@ -311,11 +367,14 @@
 
     .qr-instructions {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
+      background: linear-gradient(90deg, #ff9999, #99ff99);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       line-height: 1.6;
     }
 
-    /* Copy button premium */
+    /* Copy button premium with rainbow */
     .copy-btn {
       width: 100%;
       padding: 12px;
@@ -331,11 +390,15 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      position: relative;
     }
 
     .copy-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: #667eea;
+      background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+      background-size: 400% 100%;
+      animation: rainbowFlow 1s linear infinite;
+      border-color: transparent;
+      transform: scale(1.02);
     }
 
     /* Loading spinner */
@@ -349,10 +412,17 @@
       width: 40px;
       height: 40px;
       border: 3px solid rgba(102, 126, 234, 0.3);
-      border-top-color: #667eea;
+      border-top-color: #ff00ff;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 10px;
+      animation: spin 0.8s linear infinite, borderRainbow 1s infinite;
+    }
+
+    @keyframes borderRainbow {
+      0% { border-top-color: #ff0000; }
+      25% { border-top-color: #00ff00; }
+      50% { border-top-color: #0000ff; }
+      75% { border-top-color: #ff00ff; }
+      100% { border-top-color: #ff0000; }
     }
 
     @keyframes spin {
@@ -360,13 +430,19 @@
     }
 
     .loading-text {
-      color: rgba(255, 255, 255, 0.6);
+      background: linear-gradient(90deg, #ff9999, #99ff99);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       font-size: 13px;
     }
 
     /* Messages */
     .success-message {
-      color: #4ade80;
+      background: linear-gradient(90deg, #00ff00, #00ccff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -407,7 +483,10 @@
     .stat-value {
       font-size: 18px;
       font-weight: 700;
-      color: white;
+      background: linear-gradient(90deg, #ff0000, #ff7700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .stat-label {
@@ -426,14 +505,13 @@
       }
       
       .code-number {
-        font-size: 20px;
+        font-size: 22px;
         letter-spacing: 3px;
       }
       
-      .logo {
-        width: 65px;
-        height: 65px;
-        font-size: 28px;
+      .logo-image {
+        width: 75px;
+        height: 75px;
       }
     }
   </style>
@@ -444,12 +522,11 @@
   <div class="container">
     <div class="header">
       <div class="logo-wrapper">
-        <div class="logo">
-          <i class="fas fa-bolt"></i>
-        </div>
-        <div class="badge">SILA</div>
+        <!-- Your Logo Image -->
+        <img src="https://i.ibb.co/0przShNX/Tyrex-Ksh-Tech.jpg" alt="TYREX_KSH Logo" class="logo-image">
+        <div class="badge">TYREX</div>
       </div>
-      <h1 class="title">SILA-MD</h1>
+      <h1 class="title">TYREX_KSH MD</h1>
       <p class="subtitle">WhatsApp Connector • 2026</p>
     </div>
 
@@ -496,7 +573,7 @@
       <div class="qr-instructions" id="qrInstructions"></div>
     </div>
 
-    <button class="copy-btn" id="copy" onclick="copyCode()">
+    <button class="copy-btn" id="copy">
       <i class="fas fa-copy"></i> Copy Code
     </button>
 
@@ -515,7 +592,7 @@
           <div class="stat-label">Connection</div>
         </div>
       </div>
-      <p>© 2026 SILA-MD • PRO</p>
+      <p>© 2026 TYREX_KSH MD • PRO</p>
     </div>
   </div>
 
@@ -645,7 +722,7 @@
         
         if (response.data && response.data.success !== false) {
           if (response.data.code) {
-            codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> <span class="code-number">${response.data.code}</span></div>`;
+            codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> <span class="code-number" id="pairCodeText">${response.data.code}</span></div>`;
           } else if (response.data.message) {
             codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> ${response.data.message}</div>`;
           }
@@ -663,20 +740,48 @@
       }
     });
 
+    // COPY FUNCTION - Automatically copies the code when clicked
     function copyCode() {
-      const codeDisplay = document.getElementById("codeDisplay");
-      const codeText = codeDisplay.innerText;
-      const match = codeText.match(/\d{4,8}[-\d]*/);
+      const codeElement = document.getElementById("pairCodeText");
       
-      if (match) {
-        navigator.clipboard.writeText(match[0]).then(() => {
+      if (codeElement) {
+        const codeText = codeElement.innerText;
+        
+        navigator.clipboard.writeText(codeText).then(() => {
           const copyBtn = document.getElementById("copy");
           const originalHTML = copyBtn.innerHTML;
-          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-          setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 2000);
+          copyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Code Copied! 🎉';
+          copyBtn.style.background = "linear-gradient(90deg, #00ff00, #00cc00)";
+          copyBtn.style.animation = "rainbowFlow 0.5s linear infinite";
+          
+          setTimeout(() => {
+            copyBtn.innerHTML = originalHTML;
+            copyBtn.style.background = "";
+            copyBtn.style.animation = "";
+          }, 2000);
+        }).catch(err => {
+          console.error("Copy failed:", err);
+          alert("Failed to copy code. Please copy manually.");
         });
+      } else {
+        const codeDisplay = document.getElementById("codeDisplay");
+        const displayText = codeDisplay.innerText;
+        const match = displayText.match(/\d{4,8}[-\d]*/);
+        
+        if (match) {
+          navigator.clipboard.writeText(match[0]).then(() => {
+            const copyBtn = document.getElementById("copy");
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Code Copied! 🎉';
+            setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 2000);
+          });
+        } else {
+          alert("No code available to copy. Please generate a code first.");
+        }
       }
     }
+
+    document.getElementById("copy").addEventListener("click", copyCode);
 
     document.getElementById("mobileNumber").addEventListener("keypress", function(e) {
       if (e.key === "Enter" && currentMode === 'pair') {
