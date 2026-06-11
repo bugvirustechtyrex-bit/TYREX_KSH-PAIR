@@ -14,7 +14,7 @@
   "author": "Sila",
   "license": "ISC",
   "dependencies": {
-    "@whiskeysockets/baileys": "^7.0.0-rc10",
+    "@whiskeysockets/baileys": "7.0.0-rc13",
     "awesome-phonenumber": "7.2.0",
     "body-parser": "^1.20.3",
     "express": "^4.21.2",
